@@ -3,7 +3,8 @@
     "version": "0.0.0",
     "description": "",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "pxt-PlanetX": "github:elecfreaks/pxt-planetx#v1.6.1"
     },
     "files": [
         "README.md",
