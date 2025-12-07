@@ -18,6 +18,7 @@ enum Dir {
 namespace Semaphore {
     //% blockId="semaphore_create" block="Semaphore at pin %pin|with %direction|direction"
     //% blockSetVariable=semaphore
+    //% weight=100
     export function create(pin: PlanetX_Display.DigitalRJPin, direction: Dir): Semaphore {
         let sem = new Semaphore();
         sem.strip = PlanetX_Display.create(pin, 8, PlanetX_Display.NeoPixelMode.RGB)
