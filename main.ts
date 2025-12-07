@@ -12,10 +12,17 @@ enum State {
     On,
     Off
 }
+enum Dir {
+    Up = 0,
+    Down = 4,
+    Left = 2,
+    Right = 6
+}
+
 //% color="#AA278D" weight=100
 namespace Semaphore {
     //% block
-    export function set(pin: PlanetX_Display.DigitalRJPin, color: Color, state: State) {
+    export function set(pin: PlanetX_Display.DigitalRJPin, direction: Dir, color: Color, state: State) {
         switch (color) {
             case Color.Red:
                 status_red = (state == State.On)
@@ -27,7 +34,7 @@ namespace Semaphore {
                 status_green = (state == State.On)
                 break;
         }
-        redraw(pin)
+        redraw(pin, direction)
     }
 
     //% block
@@ -35,26 +42,31 @@ namespace Semaphore {
         status_red = false
         status_yellow = false
         status_green = false
-        redraw(pin)
+        redraw(pin, Dir.Up)
     }
 
-    function redraw(pin: PlanetX_Display.DigitalRJPin) {
+    function redraw(pin: PlanetX_Display.DigitalRJPin, direction: Dir) {
         s = PlanetX_Display.create(pin, 8, PlanetX_Display.NeoPixelMode.RGB)
         s.clear()
+
         if (status_red) {
-            s.setPixelColor(7, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
-            s.setPixelColor(6, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
-            s.setPixelColor(5, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
+            s.setPixelColor(getLed(7, direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
+            s.setPixelColor(getLed(6, direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
+            s.setPixelColor(getLed(5, direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
         }
         if (status_yellow) {
-            s.setPixelColor(0, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
-            s.setPixelColor(4, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
+            s.setPixelColor(getLed(0, direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
+            s.setPixelColor(getLed(4, direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
         }
         if (status_green) {
-            s.setPixelColor(1, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
-            s.setPixelColor(2, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
-            s.setPixelColor(3, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
+            s.setPixelColor(getLed(1, direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
+            s.setPixelColor(getLed(2, direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
+            s.setPixelColor(getLed(3, direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
         }
         s.show()
+    }
+
+    function getLed(position: number, direction: Dir): number {
+        return (position + direction) % 8
     }
 }
