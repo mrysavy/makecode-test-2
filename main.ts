@@ -43,12 +43,17 @@ namespace Semaphore {
         s.clear()
         if (status_red) {
             s.setPixelColor(7, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
+            s.setPixelColor(6, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
+            s.setPixelColor(5, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
         }
         if (status_yellow) {
             s.setPixelColor(0, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
+            s.setPixelColor(4, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
         }
         if (status_green) {
             s.setPixelColor(1, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
+            s.setPixelColor(2, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
+            s.setPixelColor(3, PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
         }
         s.show()
     }
