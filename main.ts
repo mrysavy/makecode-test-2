@@ -15,8 +15,8 @@ enum State {
 enum Dir {
     Up = 0,
     Down = 4,
-    Left = 2,
-    Right = 6
+    Right = 2,
+    Left = 6
 }
 
 //% color="#AA278D" weight=100
