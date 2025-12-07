@@ -3,19 +3,16 @@ enum Color {
     Yellow,
     Green
 }
-
 enum State {
     On,
     Off
 }
-
 enum J {
     J1,
     J2,
     J3,
     J4
 }
-
 //% color="#AA278D" weight=100
 namespace neopixel_semaphore {
     //% block
