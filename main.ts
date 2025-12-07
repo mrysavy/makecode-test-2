@@ -1,8 +1,3 @@
-let s: PlanetX_Display.Strip = null
-let status_red: boolean = false
-let status_yellow: boolean = false
-let status_green: boolean = false
-
 enum Color {
     Red,
     Yellow,
@@ -21,60 +16,68 @@ enum Dir {
 
 //% color="#AA278D" weight=100
 namespace Semaphore {
-    //% block
+    //% blockId="semaphore_create" block="Semaphore at pin %pin|with %direction|direction"
+    //% blockSetVariable=semaphore
     export function create(pin: PlanetX_Display.DigitalRJPin, direction: Dir): Semaphore {
         let sem = new Semaphore();
         sem.strip = PlanetX_Display.create(pin, 8, PlanetX_Display.NeoPixelMode.RGB)
         sem.direction = direction;
+        sem.status_red = false
+        sem.status_yellow = false
+        sem.status_green = false
         return sem;
     }
 
     export class Semaphore {
         strip: PlanetX_Display.Strip;
         direction: Dir;
+        status_red: boolean
+        status_yellow: boolean
+        status_green: boolean
 
-        //% block
+
+        //% blockId="semaphore_set" block="Set %semaphore %color to %state"
         set(color: Color, state: State) {
             switch (color) {
                 case Color.Red:
-                    status_red = (state == State.On)
+                    this.status_red = (state == State.On)
                     break;
                 case Color.Yellow:
-                    status_yellow = (state == State.On)
+                    this.status_yellow = (state == State.On)
                     break;
                 case Color.Green:
-                    status_green = (state == State.On)
+                    this.status_green = (state == State.On)
                     break;
             }
             this.redraw()
         }
 
-        //% block
-        clear(pin: PlanetX_Display.DigitalRJPin) {
-            status_red = false
-            status_yellow = false
-            status_green = false
+        //% blockId="semaphore_clear" block="Clear %semaphore"
+        clear() {
+            this.status_red = false
+            this.status_yellow = false
+            this.status_green = false
             this.redraw()
         }
 
         private redraw() {
             this.strip.clear()
 
-            if (status_red) {
-                s.setPixelColor(getLed(7, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
-                s.setPixelColor(getLed(6, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
-                s.setPixelColor(getLed(5, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
+            if (this.status_red) {
+                this.strip.setPixelColor(getLed(7, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
+                this.strip.setPixelColor(getLed(6, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
+                this.strip.setPixelColor(getLed(5, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Red))
             }
-            if (status_yellow) {
-                s.setPixelColor(getLed(0, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
-                s.setPixelColor(getLed(4, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
+            if (this.status_yellow) {
+                this.strip.setPixelColor(getLed(0, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
+                this.strip.setPixelColor(getLed(4, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Yellow))
             }
-            if (status_green) {
-                s.setPixelColor(getLed(1, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
-                s.setPixelColor(getLed(2, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
-                s.setPixelColor(getLed(3, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
+            if (this.status_green) {
+                this.strip.setPixelColor(getLed(1, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
+                this.strip.setPixelColor(getLed(2, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
+                this.strip.setPixelColor(getLed(3, this.direction), PlanetX_Display.colors(PlanetX_Display.NeoPixelColors.Green))
             }
-            s.show()
+            this.strip.show()
         }
     }
 
