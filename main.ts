@@ -13,12 +13,13 @@ enum Dir {
     Right = 2,
     Left = 6
 }
-
-//% color="#AA278D" weight=100
-namespace Semaphore {
+//% color="#AA278D" weight=100 icon="\uf110" block="First Projects" blockId="First_Projects" 
+//% groups=["setup", "actions"]
+namespace FirstProjects {
     //% blockId="semaphore_create" block="Semaphore at pin %pin|with %direction|direction"
     //% blockSetVariable=semaphore
     //% weight=100
+    //% subcategory=Semaphore group=setup
     export function create(pin: PlanetX_Display.DigitalRJPin, direction: Dir): Semaphore {
         let sem = new Semaphore();
         sem.strip = PlanetX_Display.create(pin, 8, PlanetX_Display.NeoPixelMode.RGB)
@@ -37,7 +38,7 @@ namespace Semaphore {
         status_green: boolean
 
 
-        //% blockId="semaphore_set" block="Set %semaphore %color to %state"
+        //% blockId="semaphore_set" block="Set %semaphore %color to %state" subcategory=Semaphore group=actions
         set(color: Color, state: State) {
             switch (color) {
                 case Color.Red:
@@ -53,7 +54,7 @@ namespace Semaphore {
             this.redraw()
         }
 
-        //% blockId="semaphore_clear" block="Clear %semaphore"
+        //% blockId="semaphore_clear" block="Clear %semaphore" subcategory=Semaphore group=actions
         clear() {
             this.status_red = false
             this.status_yellow = false
