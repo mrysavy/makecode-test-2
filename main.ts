@@ -20,7 +20,7 @@ namespace FirstProjects {
     //% blockSetVariable=semaphore
     //% weight=100
     //% subcategory=Semaphore group=setup
-    export function create(pin: PlanetX_Display.DigitalRJPin, direction: Dir): Semaphore {
+    export function createSemaphore(pin: PlanetX_Display.DigitalRJPin, direction: Dir): Semaphore {
         let sem = new Semaphore();
         sem.strip = PlanetX_Display.create(pin, 8, PlanetX_Display.NeoPixelMode.RGB)
         sem.direction = direction;
